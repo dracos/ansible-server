@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+<title>{{ ansible_fqdn }}</title>
+<style type="text/css">
+* { box-sizing: border-box; }
+body {
+    max-width: 596px; /* 528 + 32 + 32 + 4 */
+    margin: 0 auto;
+    font-family: Palatino, "Palatino Linotype", serif;
+    background-color: #666699;
+    color: #ffffff;
+}
+div {
+    margin: 1em;
+    padding: 1em;
+    background-color: #ffffff;
+    border: solid 2px #333366;
+    color: #000000;
+}
+img { max-width: 100% }
+h1 { font-size: 5vw; margin-top: 0; text-align: center; color: #333366; }
+@media (min-width: 596px) { h1 { font-size: 2em; } }
+h2 { color: #333366; margin-bottom: 0; }
+ul { margin: 0.5em 0 0 1.5em; padding: 0; }
+li { margin-bottom: 0.5em; }
+a:link { color: #0000ff; }
+a:visited { color: #3333cc; }
+a:active, a:hover { color: #333399; }
+</style>
+</head>
+<body>
+<div>
+    <h1>{{ ansible_fqdn }}</h1>
+    <img src="/boreas.jpeg" alt="Boreas, by Waterhouse">
+</div>
+</body>
+</html>

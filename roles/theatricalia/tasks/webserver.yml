@@ -1,0 +1,19 @@
+- name: Set up nginx
+  template: src=roles/nginx/templates/site.j2 dest=/etc/nginx/sites-enabled/theatricalia
+  vars:
+    domain: theatricalia.com
+    site: theatricalia
+  notify:
+    - reload nginx
+
+- name: Set up gunicorn
+  template: src=roles/gunicorn/templates/gunicorn.j2 dest=/etc/gunicorn.d/theatricalia
+  vars:
+    dir: /srv/theatricalia.com/theatricalia
+    user: theatricalia
+    group: theatricalia
+    site: theatricalia
+    uid: 1010
+    wsgi: theatricalia.wsgi
+  notify:
+    - reload gunicorn

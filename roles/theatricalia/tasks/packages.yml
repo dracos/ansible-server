@@ -1,0 +1,21 @@
+- name: Install needed packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - libmysqlclient-dev
+    - libjpeg-dev
+    - python-dev
+    - python-mysqldb
+
+- name: Set up virtualenv
+  pip: virtualenv=/home/theatricalia/.virtualenvs/theatricalia name="{{ item }}"
+  with_items:
+    - Django==1.5.12
+    - MySQL-python==1.2.5
+    - Pillow==3.1.1
+    - South==1.0.2
+    - django-reversion==1.7.1
+    - sorl-thumbnail==12.3
+    - django-nose==1.1
+    - python-dateutil==2.4.2
+    - six==1.10.0
+    - gunicorn==19.0.0

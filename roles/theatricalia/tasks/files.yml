@@ -1,0 +1,54 @@
+- name: Create site user
+  user: name=theatricalia uid=1010 shell=/bin/bash
+
+- name: Make sure admin is in the group
+  user: name=admin append=yes groups=theatricalia
+
+- name: Create site dir
+  file: path=/srv/theatricalia.com state=directory owner=admin group=theatricalia mode=0775
+
+- name: Create site mailbox dir
+  file: path=/srv/theatricalia.com/mailboxes/principal state=directory owner=admin group=admin
+
+- name: Create site config dir
+  file: path=/srv/theatricalia.com/config state=directory owner=admin group=admin
+
+- name: Create site media dir
+  file: path=/srv/theatricalia.com/media state=directory owner=theatricalia group=theatricalia
+
+- name: Create email forward
+  copy: dest=/srv/theatricalia.com/mailboxes/principal/forward content="{{ email }}" owner=admin group=admin
+
+- name: Create site crontab
+  copy: dest=/srv/theatricalia.com/config/crontab content="0 0 * * * /srv/theatricalia.com/theatricalia/bin/flickr-import" owner=admin group=admin
+
+- name: Public files
+  copy: dest=/srv/theatricalia.com/public/htdocs/robots.txt content="" owner=admin group=theatricalia
+
+- name: Symlink media
+  file: path=/srv/theatricalia.com/public/htdocs/media src=/srv/theatricalia.com/media state=link 
+
+- name: Symlink static
+  file: path=/srv/theatricalia.com/public/htdocs/static src=/srv/theatricalia.com/collected_static state=link force=yes
+
+- name: Favicon
+  copy: src=favicon.ico dest=/srv/theatricalia.com/public/htdocs/
+
+- name: Add SSH key (public)
+  copy: dest=/home/theatricalia/.ssh/id_rsa.pub src=id_rsa.pub owner=theatricalia group=theatricalia
+
+- name: Add SSH key (private)
+  copy: dest=/home/theatricalia/.ssh/id_rsa src=id_rsa owner=theatricalia group=theatricalia mode=0600
+
+- name: Fetch site from github
+  become_user: theatricalia
+  git: repo=ssh://git@github.com/dracos/Theatricalia.git dest=/srv/theatricalia.com/theatricalia update=no
+
+- name: Add config file
+  template: dest=/srv/theatricalia.com/theatricalia/theatricalia/settings/config.py src=config.py.j2 owner=theatricalia group=theatricalia
+
+- name: Generate collected static
+  command: /home/theatricalia/.virtualenvs/theatricalia/bin/python manage.py collectstatic --noinput
+  become_user: theatricalia
+  args:
+    chdir: /srv/theatricalia.com/theatricalia

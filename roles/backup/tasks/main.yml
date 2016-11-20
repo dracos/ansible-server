@@ -1,0 +1,27 @@
+---
+
+- name: Create disc
+  filesystem: dev=/dev/vdb fstype=ext3 opts="-L backup"
+
+- name: Create mountpoint
+  file: path=/store state=directory
+
+- name: Mount extra disc
+  mount: name=/store state=mounted fstype=ext3 src=/dev/vdb
+
+- name: Ensure backup directory exists 1
+  file: path=/store/backups state=directory mode=0750
+
+- name: Ensure backup directory exists 2
+  file: path=/store/backups/localhost state=directory
+
+- stat: path=/var/backups
+  register: st
+
+- name: Remove empty /var/backups
+  file: path=/var/backups state=absent
+  when: st.stat.islnk is defined and st.stat.islnk == False
+
+- name: Symlink /var/backups to on /store
+  file: path=/var/backups src=/store/backups state=link 
+

@@ -1,0 +1,32 @@
+---
+
+- name: Remove unused packages
+  apt: name={{ item }} state=absent purge=yes
+  with_items:
+    - symbiosis-ftpd
+    - symbiosis-email-activesync
+    - symbiosis-phpmyadmin
+    - symbiosis-webmail
+    - symbiosis-webmail-squirrelmail
+    - squirrelmail-change-pass
+    - squirrelmail-locales
+    - squirrelmail-viewashtml
+    - squirrelmail
+    - pure-ftpd
+    - pure-ftpd-common
+    - phpmyadmin
+    - php5-imap 
+    - symbiosis-httpd
+    - apache2
+    - apache2-bin
+    - apache2-data
+    - apache2-utils
+    - libapache2-mod-php5
+    - libapache2-mod-vhost-bytemark
+
+- name: Stop unused services
+  service: name={{ item }} state=stopped enabled=no
+  with_items:
+    - clamav-daemon
+    - clamav-freshclam
+

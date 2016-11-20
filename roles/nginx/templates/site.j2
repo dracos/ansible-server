@@ -1,0 +1,58 @@
+{% if site is defined %}
+upstream app_server {
+    server unix:/tmp/gunicorn-{{ site }}.sock fail_timeout=0;
+}
+{% endif %}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name {{ domain }};
+    rewrite ^ https://{{ domain }}$request_uri? permanent;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    ssl_certificate /srv/{{ domain }}/config/ssl/current/ssl.combined;
+        ssl_certificate_key /srv/{{ domain }}/config/ssl/current/ssl.combined;
+
+    server_name {{ domain }};
+    if ($http_host ~ "\.$" ){
+        rewrite ^(.*) https://$host$1 permanent;
+    }
+
+    access_log  /var/log/nginx/sites.{{ domain }}.access.log with_time;
+
+    root /srv/{{ domain }}/public/htdocs;
+
+  {% if site is defined %}
+    location / {
+        try_files $uri @proxy_to_app;
+    }
+
+    location @proxy_to_app {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://app_server;
+    }
+  {% endif %}
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name www.{{ domain }};
+    rewrite ^ https://{{ domain }}$request_uri? permanent;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    ssl_certificate /srv/{{ domain }}/config/ssl/current/ssl.combined;
+    ssl_certificate_key /srv/{{ domain }}/config/ssl/current/ssl.combined;
+    server_name www.{{ domain }};
+    rewrite ^ https://{{ domain }}$request_uri? permanent;
+}

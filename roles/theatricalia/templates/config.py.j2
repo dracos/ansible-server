@@ -1,0 +1,19 @@
+#import sys
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'theatricalia',
+        'USER': 'theatricalia',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+#if 'test' in sys.argv:
+#    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+
+SECRET_KEY = '{{ secret_key }}'
+
+ALPHA_PASSWORD='tiaomiwym' # this, if anything of mine, is worth your memory
+

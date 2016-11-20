@@ -1,0 +1,20 @@
+- name: Install nginx
+  apt: name=nginx state=latest default_release=jessie-backports
+
+- name: Additional config
+  copy: src=matthew.conf dest=/etc/nginx/conf.d/matthew.conf
+  notify:
+    - reload nginx
+
+- name: Set up default site nginx config
+  template: src=site.j2 dest=/etc/nginx/sites-enabled/default
+  vars:
+    domain: "{{ ansible_fqdn }}"
+  notify:
+    - reload nginx
+
+- name: Copy image file
+  copy: src=boreas.jpeg dest=/srv/{{ ansible_fqdn }}/public/htdocs/boreas.jpeg owner=admin group=admin
+
+- name: Set up default site
+  template: src=default-index.j2 dest=/srv/{{ ansible_fqdn }}/public/htdocs/index.html owner=admin group=admin
