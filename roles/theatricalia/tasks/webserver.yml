@@ -16,4 +16,4 @@
     uid: 1010
     wsgi: theatricalia.wsgi
   notify:
-    - reload gunicorn
+    - restart gunicorn

@@ -1,2 +1,2 @@
-- name: reload gunicorn
-  service: name=gunicorn state=reloaded
+- name: restart gunicorn
+  service: name=gunicorn state=restarted
