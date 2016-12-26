@@ -11,7 +11,7 @@ CONFIG = {
     'user': '{{ user }}',
     'group': '{{ group }}',
     'args': (
-        '--bind=unix:/tmp/gunicorn-{{ site }}.sock',
+        '--bind=unix:/tmp/gunicorn-{{ domain }}.sock',
         '--workers=4',
         # '--timeout=30',
         '{{ wsgi }}:application',

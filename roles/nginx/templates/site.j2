@@ -1,22 +1,20 @@
 {% if site is defined %}
-upstream app_server {
-    server unix:/tmp/gunicorn-{{ site }}.sock fail_timeout=0;
+upstream app_server-{{ domain }} {
+    server unix:/tmp/gunicorn-{{ domain }}.sock fail_timeout=0;
 }
 {% endif %}
 
 server {
-    listen 80;
-    listen [::]:80;
-    server_name {{ domain }};
-    rewrite ^ https://{{ domain }}$request_uri? permanent;
-}
-
-server {
+{% if ssl %}
     listen 443 ssl;
     listen [::]:443 ssl;
 
     ssl_certificate /srv/{{ domain }}/config/ssl/current/ssl.combined;
-        ssl_certificate_key /srv/{{ domain }}/config/ssl/current/ssl.combined;
+    ssl_certificate_key /srv/{{ domain }}/config/ssl/current/ssl.combined;
+{% else %}
+    listen 80;
+    listen [::]:80;
+{% endif %}
 
     server_name {{ domain }};
     if ($http_host ~ "\.$" ){
@@ -35,20 +33,26 @@ server {
     location @proxy_to_app {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Real-IP $remote_addr;
+{% if ssl %}
+        proxy_set_header X-Forwarded-Proto https;
+{% endif %}
         proxy_set_header Host $http_host;
         proxy_redirect off;
-        proxy_pass http://app_server;
+        proxy_pass http://app_server-{{ domain }};
     }
   {% endif %}
 }
 
+{% if ssl %}
 server {
     listen 80;
     listen [::]:80;
-    server_name www.{{ domain }};
+    server_name {{ domain }} www.{{ domain }};
     rewrite ^ https://{{ domain }}$request_uri? permanent;
 }
+{% endif %}
 
+{% if ssl %}
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
@@ -57,3 +61,4 @@ server {
     server_name www.{{ domain }};
     rewrite ^ https://{{ domain }}$request_uri? permanent;
 }
+{% endif %}

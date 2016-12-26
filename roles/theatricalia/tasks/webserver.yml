@@ -3,6 +3,16 @@
   vars:
     domain: theatricalia.com
     site: theatricalia
+    ssl: 1
+  notify:
+    - reload nginx
+
+- name: Set up nginx (staging)
+  template: src=roles/nginx/templates/site.j2 dest=/etc/nginx/sites-enabled/theatricalia-staging
+  vars:
+    domain: staging.theatricalia.com
+    site: theatricalia
+    ssl: 0
   notify:
     - reload nginx
 
@@ -13,6 +23,20 @@
     user: theatricalia
     group: theatricalia
     site: theatricalia
+    domain: theatricalia.com
+    uid: 1010
+    wsgi: theatricalia.wsgi
+  notify:
+    - reload gunicorn
+
+- name: Set up gunicorn (staging)
+  template: src=roles/gunicorn/templates/gunicorn.j2 dest=/etc/gunicorn.d/theatricalia-staging
+  vars:
+    dir: /srv/staging.theatricalia.com/theatricalia
+    user: theatricalia
+    group: theatricalia
+    site: theatricalia-staging
+    domain: staging.theatricalia.com
     uid: 1010
     wsgi: theatricalia.wsgi
   notify:

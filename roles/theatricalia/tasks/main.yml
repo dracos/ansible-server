@@ -1,4 +1,9 @@
 - include: database.yml
 - include: packages.yml
 - include: files.yml
+  vars:
+    domain: theatricalia.com
+- include: files.yml
+  vars:
+    domain: staging.theatricalia.com
 - include: webserver.yml

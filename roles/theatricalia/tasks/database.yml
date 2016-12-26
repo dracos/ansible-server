@@ -1,5 +1,11 @@
 - name: Add database
   mysql_db: name=theatricalia state=present login_password={{ mysql_password }}
 
+- name: Add database (staging)
+  mysql_db: name=theatricalia_staging state=present login_password={{ mysql_password }}
+
 - name: Add database user
   mysql_user: name=theatricalia priv=theatricalia.*:ALL login_password={{ mysql_password }}
+
+- name: Add database user (staging)
+  mysql_user: name=theatricalia append_privs=true priv=theatricalia_staging.*:ALL login_password={{ mysql_password }}

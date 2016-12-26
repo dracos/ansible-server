@@ -10,6 +10,7 @@
   template: src=site.j2 dest=/etc/nginx/sites-enabled/default
   vars:
     domain: "{{ ansible_fqdn }}"
+    ssl: 1
   notify:
     - reload nginx
 
