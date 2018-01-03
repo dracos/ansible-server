@@ -10,6 +10,8 @@
         - git
         - strace
         - vim
+        - jq
+        - mutt
   roles:
   - symbiosis-tidy
   - backup
