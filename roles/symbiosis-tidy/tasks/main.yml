@@ -30,3 +30,7 @@
     - clamav-daemon
     - clamav-freshclam
 
+- name: Add config
+  copy: dest=/etc/exim4/symbiosis.d/00-main/55-environ-options src=55-environ-options
+  notify: Remake Exim config
+
