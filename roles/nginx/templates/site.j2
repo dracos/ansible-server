@@ -21,6 +21,10 @@ server {
         rewrite ^(.*) https://$host$1 permanent;
     }
 
+    if ($http_user_agent ~* (ahrefs|semrush)) {
+        return 444;
+    }
+
     access_log  /var/log/nginx/sites.{{ domain }}.access.log with_time;
 
     root /srv/{{ domain }}/public/htdocs;
