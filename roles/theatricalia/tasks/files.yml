@@ -23,7 +23,7 @@
   copy: dest=/srv/theatricalia.com/config/crontab content="0 0 * * * /srv/theatricalia.com/theatricalia/bin/flickr-import" owner=admin group=admin
 
 - name: Public files {{ domain }}
-  copy: dest=/srv/{{ domain }}/public/htdocs/robots.txt content="" owner=admin group=theatricalia
+  copy: dest=/srv/{{ domain }}/public/htdocs/robots.txt content="" owner=admin group=theatricalia force=no
 
 - name: Symlink media {{ domain }}
   file: path=/srv/{{ domain }}/public/htdocs/media src=/srv/{{ domain }}/media state=link
