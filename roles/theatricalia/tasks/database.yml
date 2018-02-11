@@ -9,3 +9,6 @@
 
 - name: Add database user (staging)
   mysql_user: name=theatricalia append_privs=true priv=theatricalia_staging.*:ALL login_password={{ mysql_password }}
+
+- name: Add MySQL config
+  copy: dest=/etc/mysql/conf.d/theatricalia.cnf src=mysql.cnf

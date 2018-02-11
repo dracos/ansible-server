@@ -1,0 +1,4 @@
+[mysqld]
+wait_timeout=1800
+
+# Default is 28800 (8hrs). See if this helps with TOo many connections
