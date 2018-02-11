@@ -45,6 +45,18 @@ server {
         proxy_pass http://app_server-{{ domain }};
     }
   {% endif %}
+
+  {% if php is defined and php %}
+    index index.php index.html;
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass   php;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+  {% endif %}
+
 }
 
 {% if ssl %}
@@ -54,9 +66,7 @@ server {
     server_name {{ domain }} www.{{ domain }};
     rewrite ^ https://{{ domain }}$request_uri? permanent;
 }
-{% endif %}
 
-{% if ssl %}
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
