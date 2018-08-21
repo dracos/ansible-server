@@ -1,0 +1,13 @@
+- include: files.yml
+  vars:
+    domain: zephyrus.boreas.default.dracos.uk0.bigv.io
+    php: 1
+    ssl: 1
+- include: files.yml
+  vars:
+    domain: notos.boreas.default.dracos.uk0.bigv.io
+    ssl: 1
+- include: files.yml
+  vars:
+    domain: eurus.boreas.default.dracos.uk0.bigv.io
+    ssl: 1
