@@ -16,7 +16,7 @@ server {
     listen [::]:80;
 {% endif %}
 
-    server_name {{ domain }};
+    server_name {{ domain }}{% if not ssl %} www.{{ domain}}{% endif %};
     if ($http_host ~ "\.$" ){
         rewrite ^(.*) https://$host$1 permanent;
     }
