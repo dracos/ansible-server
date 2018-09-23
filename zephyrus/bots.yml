@@ -1,0 +1,63 @@
+---
+- name: Sets up bots
+  hosts: zephyrus
+  tasks:
+  - name: Install virtualenv
+    apt: name=virtualenv state=latest
+  - name: Add user
+    user: name=bots shell=/bin/bash state=present
+  - name: Create data directory
+    file: path=/home/bots/data state=directory owner=bots group=bots
+  - name: Set up virtualenv
+    pip: virtualenv=/home/bots/.venv virtualenv_python=python3.5 name=polybot,arrow,beautifulsoup4,requests
+    become: true
+    become_user: bots
+  - name: Set up virtualenv 2
+    pip: editable=yes virtualenv=/home/bots/.venv virtualenv_python=python3.5 name=git+https://github.com/dracos/polybot@master#egg=polybot state=latest
+    become: true
+    become_user: bots
+  - name: Run secgen bot (fetch)
+    cron:
+      name: Run secgen bot (fetch)
+      minute: 0
+      hour: 9,12,13,14,15,16,17
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/cbeebies.py fetch >> /home/bots/cron.log 2>&1
+      user: bots
+  - name: Run secgen post (post)
+    cron:
+      name: Run secgen bot (post)
+      minute: "*/5"
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/secgen.py post --live >> /home/bots/cron.log 2>&1
+      user: bots
+  - name: Run S&D bot (fetch)
+    cron:
+      name: Run S&D bot (fetch)
+      minute: 0
+      hour: 9
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/cbeebies.py fetch >> /home/bots/cron.log 2>&1
+      user: bots
+  - name: Run S&D bot (post)
+    cron:
+      name: Run S&D bot (post)
+      minute: "*/10"
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/cbeebies.py post --live >> /home/bots/cron.log 2>&1
+      user: bots
+  - name: Run AboveBrum bot (fetch)
+    cron:
+      name: Run AboveBrum bot (fetch)
+      hour: 2
+      minute: 2
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/iridium.py fetch >> /home/bots/cron.log 2>&1
+      user: bots
+  - name: Run AboveBrum bot (weather)
+    cron:
+      name: Run AboveBrum bot (weather)
+      minute: 57
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/iridium.py weather >> /home/bots/cron.log 2>&1
+      user: bots
+  - name: Run AboveBrum bot (post)
+    cron:
+      name: Run AboveBrum bot (post)
+      minute: "*/5"
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/iridium.py post --live >> /home/bots/cron.log 2>&1
+      user: bots

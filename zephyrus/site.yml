@@ -1,0 +1,3 @@
+---
+- import_playbook: bots.yml
+- import_playbook: mastible/site.yml
