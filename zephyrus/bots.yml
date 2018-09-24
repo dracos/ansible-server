@@ -21,7 +21,7 @@
       name: Run secgen bot (fetch)
       minute: 0
       hour: 9,12,13,14,15,16,17
-      job: /home/bots/.venv/bin/python /home/bots/scheduler/cbeebies.py fetch >> /home/bots/cron.log 2>&1
+      job: /home/bots/.venv/bin/python /home/bots/scheduler/secgen.py fetch >> /home/bots/cron.log 2>&1
       user: bots
   - name: Run secgen post (post)
     cron:
