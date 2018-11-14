@@ -8,6 +8,7 @@
     - symbiosis-phpmyadmin
     - symbiosis-webmail
     - symbiosis-webmail-squirrelmail
+    - symbiosis-xmpp
     - squirrelmail-change-pass
     - squirrelmail-locales
     - squirrelmail-viewashtml
