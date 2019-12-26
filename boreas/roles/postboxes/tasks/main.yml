@@ -1,0 +1,29 @@
+- name: Install needed packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - php5-mysql
+
+- name: Add database
+  mysql_db: name=postboxes state=present login_password={{ mysql_password }}
+
+- name: Add database user
+  mysql_user: name=postboxes priv=postboxes.*:ALL login_password={{ mysql_password }}
+
+- block:
+    - name: Copy schema to tmp
+      copy: src=schema.sql dest=/tmp
+    - name: Add db tables from tmp
+      mysql_db: name=postboxes login_user=postboxes state=import target=/tmp/schema.sql
+
+- include: files.yml
+  vars:
+    domain: postboxes.dracos.co.uk
+
+- name: Set up nginx
+  template: src=roles/nginx/templates/site.j2 dest=/etc/nginx/sites-enabled/postboxes
+  vars:
+    domain: postboxes.dracos.co.uk
+    php: 1
+    ssl: 1
+  notify:
+    - reload nginx
