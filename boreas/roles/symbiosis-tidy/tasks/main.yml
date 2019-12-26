@@ -16,13 +16,13 @@
     - pure-ftpd
     - pure-ftpd-common
     - phpmyadmin
-    - php5-imap 
+    - php-imap 
     - symbiosis-httpd
     - apache2
     - apache2-bin
     - apache2-data
     - apache2-utils
-    - libapache2-mod-php5
+    - libapache2-mod-php
     - libapache2-mod-vhost-bytemark
 
 - name: Stop unused services
@@ -30,8 +30,3 @@
   with_items:
     - clamav-daemon
     - clamav-freshclam
-
-- name: Add config
-  copy: dest=/etc/exim4/symbiosis.d/00-main/55-environ-options src=55-environ-options
-  notify: Remake Exim config
-

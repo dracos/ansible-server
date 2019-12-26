@@ -12,7 +12,7 @@
         - vim
         - jq
         - mutt
-        - php5-curl
+        - php-curl
   roles:
   - symbiosis-tidy
   - backup
