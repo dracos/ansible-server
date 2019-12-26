@@ -1,6 +1,6 @@
 {% if site is defined %}
 upstream app_server-{{ domain }} {
-    server unix:/tmp/gunicorn-{{ domain }}.sock fail_timeout=0;
+    server unix:/run/uwsgi/app/{{ site }}/socket fail_timeout=0;
 }
 {% endif %}
 
@@ -50,7 +50,8 @@ server {
 {% endif %}
         proxy_set_header Host $http_host;
         proxy_redirect off;
-        proxy_pass http://app_server-{{ domain }};
+        include uwsgi_params;
+        uwsgi_pass app_server-{{ domain }};
     }
   {% endif %}
 

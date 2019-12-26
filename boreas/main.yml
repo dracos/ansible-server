@@ -17,7 +17,7 @@
   - symbiosis-tidy
   - backup
   - nginx
-  - gunicorn
+  - uwsgi
   - theatricalia
   - postboxes
   - labs

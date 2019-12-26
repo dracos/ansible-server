@@ -5,11 +5,11 @@ Theatricalia. It:
 * stops the memory-hungry unneeded antivirus daemons;
 * makes sure the second disc is available and used for the backup location;
 * installs nginx with some extra config and a default site;
-* installs gunicorn; and
+* installs uwsgi; and
 * sets up various things to run the site itself:
     - a MySQL database and user;
     - a virtualenv;
-    - webserver configuration for nginx and gunicorn;
+    - webserver configuration for nginx and uwsgi;
     - a site unix user, default static files, and SSH key;
     - fetches the code from GitHub.
 

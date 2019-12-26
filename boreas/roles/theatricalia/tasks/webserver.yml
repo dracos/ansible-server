@@ -16,8 +16,8 @@
   notify:
     - reload nginx
 
-- name: Set up gunicorn
-  template: src=roles/gunicorn/templates/gunicorn.j2 dest=/etc/gunicorn.d/theatricalia
+- name: Set up uwsgi
+  template: src=roles/uwsgi/templates/uwsgi.j2 dest=/etc/uwsgi/apps-enabled/theatricalia.ini
   vars:
     dir: /srv/theatricalia.com/theatricalia
     user: theatricalia
@@ -27,10 +27,10 @@
     uid: 1010
     wsgi: theatricalia.wsgi
   notify:
-    - reload gunicorn
+    - reload uwsgi
 
-- name: Set up gunicorn (staging)
-  template: src=roles/gunicorn/templates/gunicorn.j2 dest=/etc/gunicorn.d/theatricalia-staging
+- name: Set up uwsgi (staging)
+  template: src=roles/uwsgi/templates/uwsgi.j2 dest=/etc/uwsgi/apps-enabled/theatricalia-staging.ini
   vars:
     dir: /srv/staging.theatricalia.com/theatricalia
     user: theatricalia
@@ -40,4 +40,4 @@
     uid: 1010
     wsgi: theatricalia.wsgi
   notify:
-    - restart gunicorn
+    - reload uwsgi
