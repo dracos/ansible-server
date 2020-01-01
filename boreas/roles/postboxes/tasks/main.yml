@@ -1,7 +1,8 @@
 - name: Install needed packages
-  apt: name={{ item }} state=latest
-  with_items:
-    - php-mysql
+  apt:
+    state: latest
+    name:
+      - php-mysql
 
 - name: Add database
   mysql_db: name=postboxes state=present login_password={{ mysql_password }}

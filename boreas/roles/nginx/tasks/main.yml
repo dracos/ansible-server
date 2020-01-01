@@ -16,7 +16,7 @@
     - reload nginx
 
 - name: Copy image file
-  copy: src=boreas.jpeg dest=/srv/{{ ansible_fqdn }}/public/htdocs/boreas.jpeg owner=admin group=admin
+  copy: src=boreas.jpeg dest=/srv/{{ ansible_fqdn }}/public/htdocs/boreas.jpeg owner=www-data group=www-data
 
 - name: Set up default site
-  template: src=default-index.j2 dest=/srv/{{ ansible_fqdn }}/public/htdocs/index.html owner=admin group=admin
+  template: src=default-index.j2 dest=/srv/{{ ansible_fqdn }}/public/htdocs/index.html owner=www-data group=www-data

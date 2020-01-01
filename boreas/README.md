@@ -1,7 +1,7 @@
 This playbook is run on a default Bytemark Symbiosis server to set it up to run
 Theatricalia. It:
 
-* removes some unused symbiosis components;
+* removes some unused Sympl components;
 * stops the memory-hungry unneeded antivirus daemons;
 * makes sure the second disc is available and used for the backup location;
 * installs nginx with some extra config and a default site;

@@ -5,14 +5,15 @@
     - name: Update APT
       apt: update_cache=yes
     - name: Install the necessities
-      apt: name={{ item }} state=latest
-      with_items:
-        - git
-        - strace
-        - vim
-        - jq
-        - mutt
-        - php-curl
+      apt:
+        state: latest
+        name:
+          - git
+          - strace
+          - vim
+          - jq
+          - mutt
+          - php-curl
   roles:
   - symbiosis-tidy
   - backup

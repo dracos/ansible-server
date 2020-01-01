@@ -1,35 +1,39 @@
 - name: Install needed packages
-  apt: name={{ item }} state=latest
-  with_items:
-    - libmysqlclient-dev
-    - libjpeg-dev
-    - python-dev
-    - python-mysqldb
-    - virtualenv
+  apt:
+    state: latest
+    name:
+      - libmysqlclient-dev
+      - libjpeg-dev
+      - python-dev
+      - python-mysqldb
+      - python-setuptools
+      - virtualenv
 
 - name: Set up virtualenv
-  pip: virtualenv=/home/theatricalia/.virtualenvs/theatricalia name="{{ item }}"
-  with_items:
-    - Django==1.11.20
-    - MySQL-python==1.2.5
-    - Pillow==3.1.1
-    - django-reversion==2.0.13
-    - django-contrib-comments==1.9.1
-    - sorl-thumbnail==12.5.0
-    - django-nose==1.4.6
-    - python-dateutil==2.4.2
-    - six==1.10.0
+  pip:
+    virtualenv: /home/theatricalia/.virtualenvs/theatricalia
+    name:
+      - Django==1.11.20
+      - MySQL-python==1.2.5
+      - Pillow==3.1.1
+      - django-reversion==2.0.13
+      - django-contrib-comments==1.9.1
+      - sorl-thumbnail==12.5.0
+      - django-nose==1.4.6
+      - python-dateutil==2.4.2
+      - six==1.10.0
 
 - name: Set up virtualenv (staging)
-  pip: virtualenv=/home/theatricalia/.virtualenvs/theatricalia-staging name="{{ item }}"
-  with_items:
-    - Django==1.11.20
-    - MySQL-python==1.2.5
-    - Pillow==3.1.1
-    - django-reversion==2.0.13
-    - django-contrib-comments==1.9.1
-    - sorl-thumbnail==12.5.0
-    - django-nose==1.4.6
-    - python-dateutil==2.4.2
-    - six==1.10.0
-    - django-debug-toolbar==1.11
+  pip:
+    virtualenv: /home/theatricalia/.virtualenvs/theatricalia-staging
+    name:
+      - Django==1.11.20
+      - MySQL-python==1.2.5
+      - Pillow==3.1.1
+      - django-reversion==2.0.13
+      - django-contrib-comments==1.9.1
+      - sorl-thumbnail==12.5.0
+      - django-nose==1.4.6
+      - python-dateutil==2.4.2
+      - six==1.10.0
+      - django-debug-toolbar==1.11

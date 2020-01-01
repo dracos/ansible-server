@@ -1,14 +1,14 @@
 - name: Create site dir {{ domain }}
-  file: path=/srv/{{ domain }} state=directory owner=admin group=theatricalia mode=0775
+  file: path=/srv/{{ domain }} state=directory owner=sympl group=theatricalia mode=0775
 
 - name: Create site config dir {{ domain }}
-  file: path=/srv/{{ domain }}/config state=directory owner=admin group=admin
+  file: path=/srv/{{ domain }}/config state=directory owner=sympl group=sympl
 
 - name: Create site public dir {{ domain }}
-  file: path=/srv/{{ domain }}/public/htdocs state=directory owner=admin group=theatricalia
+  file: path=/srv/{{ domain }}/public/htdocs state=directory owner=www-data group=www-data
 
 - name: Public files {{ domain }}
-  copy: dest=/srv/{{ domain }}/public/htdocs/robots.txt content="" owner=admin group=theatricalia force=no
+  copy: dest=/srv/{{ domain }}/public/htdocs/robots.txt content="" owner=www-data group=www-data force=no
 
 - name: Set up nginx for {{ domain }}
   template: src=roles/nginx/templates/site.j2 dest=/etc/nginx/sites-enabled/{{ domain }}

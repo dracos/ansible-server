@@ -1,29 +1,29 @@
 - name: Create site user
   user: name=theatricalia uid=1010 shell=/bin/bash
 
-- name: Make sure admin is in the group
-  user: name=admin append=yes groups=theatricalia
+- name: Make sure sympl is in the group
+  user: name=sympl append=yes groups=theatricalia
 
 - name: Create site dir {{ domain }}
-  file: path=/srv/{{ domain }} state=directory owner=admin group=theatricalia mode=0775
+  file: path=/srv/{{ domain }} state=directory owner=sympl group=theatricalia mode=0775
 
 - name: Create site mailbox dir {{ domain }}
-  file: path=/srv/{{ domain }}/mailboxes/principal state=directory owner=admin group=admin
+  file: path=/srv/{{ domain }}/mailboxes/principal state=directory owner=sympl group=sympl
 
 - name: Create site config dir {{ domain }}
-  file: path=/srv/{{ domain }}/config state=directory owner=admin group=admin
+  file: path=/srv/{{ domain }}/config state=directory owner=sympl group=sympl
 
 - name: Create site media dir {{ domain }}
   file: path=/srv/{{ domain }}/media state=directory owner=theatricalia group=theatricalia
 
 - name: Create email forward {{ domain }}
-  copy: dest=/srv/{{ domain }}/mailboxes/principal/forward content="{{ email }}" owner=admin group=admin
+  copy: dest=/srv/{{ domain }}/mailboxes/principal/forward content="{{ email }}" owner=sympl group=sympl
 
 - name: Create site crontab
-  copy: dest=/srv/theatricalia.com/config/crontab content="0 0 * * * /srv/theatricalia.com/theatricalia/bin/flickr-import" owner=admin group=admin
+  copy: dest=/srv/theatricalia.com/config/crontab content="0 0 * * * /srv/theatricalia.com/theatricalia/bin/flickr-import" owner=sympl group=sympl
 
 - name: Public files {{ domain }}
-  copy: dest=/srv/{{ domain }}/public/htdocs/robots.txt content="" owner=admin group=theatricalia force=no
+  copy: dest=/srv/{{ domain }}/public/htdocs/robots.txt content="" owner=sympl group=theatricalia force=no
 
 - name: Symlink media {{ domain }}
   file: path=/srv/{{ domain }}/public/htdocs/media src=/srv/{{ domain }}/media state=link
