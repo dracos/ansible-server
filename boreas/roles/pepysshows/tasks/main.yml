@@ -1,0 +1,23 @@
+- name: Install needed packages
+  apt:
+    state: latest
+    name:
+      - php-mysql
+
+- name: Create site dir
+  file: path=/srv/pepysshows.dracos.co.uk state=directory owner=sympl group=sympl
+
+- name: Create site config dir
+  file: path=/srv/pepysshows.dracos.co.uk/config state=directory owner=sympl group=sympl
+
+- name: Public files
+  copy: dest=/srv/pepysshows.dracos.co.uk/public/htdocs/robots.txt content="" owner=www-data group=www-data force=no
+
+- name: Set up nginx
+  template: src=roles/nginx/templates/site.j2 dest=/etc/nginx/sites-enabled/pepysshows
+  vars:
+    domain: pepysshows.dracos.co.uk
+    php: 1
+    ssl: 1
+  notify:
+    - reload nginx
