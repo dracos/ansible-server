@@ -23,8 +23,6 @@
     user: theatricalia
     group: theatricalia
     site: theatricalia
-    domain: theatricalia.com
-    uid: 1010
     wsgi: theatricalia.wsgi
   notify:
     - reload uwsgi
@@ -36,8 +34,7 @@
     user: theatricalia
     group: theatricalia
     site: theatricalia-staging
-    domain: staging.theatricalia.com
-    uid: 1010
     wsgi: theatricalia.wsgi
+    num_procs: 2
   notify:
     - reload uwsgi
