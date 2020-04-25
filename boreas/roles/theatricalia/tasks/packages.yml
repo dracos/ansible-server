@@ -13,9 +13,9 @@
   pip:
     virtualenv: /home/theatricalia/.virtualenvs/theatricalia
     name:
-      - Django==1.11.20
+      - Django==1.11.29
       - MySQL-python==1.2.5
-      - Pillow==3.1.1
+      - Pillow==6.2.2
       - django-reversion==2.0.13
       - django-contrib-comments==1.9.1
       - sorl-thumbnail==12.5.0
@@ -27,9 +27,9 @@
   pip:
     virtualenv: /home/theatricalia/.virtualenvs/theatricalia-staging
     name:
-      - Django==1.11.20
+      - Django==1.11.29
       - MySQL-python==1.2.5
-      - Pillow==3.1.1
+      - Pillow==6.2.2
       - django-reversion==2.0.13
       - django-contrib-comments==1.9.1
       - sorl-thumbnail==12.5.0
