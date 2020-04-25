@@ -1,4 +1,10 @@
-[mysqld]
-wait_timeout=1800
 
-# Default is 28800 (8hrs). See if this helps with TOo many connections
+[mysqld]
+# Default is 28800 (8hrs). See if this helps with Too many connections
+wait_timeout=1800
+# Shrink from the default 128M
+innodb_buffer_pool_chunk_size=32M
+innodb_buffer_pool_size=32M
+key_buffer_size=96M
+innodb_log_file_size=4M
+
