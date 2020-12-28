@@ -4,7 +4,6 @@
     name:
       - libmysqlclient-dev
       - libjpeg-dev
-      - python-dev
       - python3-dev
       - python3-mysqldb
       - python-setuptools
@@ -12,21 +11,22 @@
 
 - name: Set up virtualenv
   pip:
-    virtualenv: /home/theatricalia/.virtualenvs/theatricalia
+    virtualenv: /home/theatricalia/.virtualenvs/theatricalia-3
+    virtualenv_python: python3
     name:
       - Django==1.11.29
-      - MySQL-python==1.2.5
-      - Pillow==6.2.2
+      - mysqlclient==2.0.2
+      - Pillow==8.0.1
       - django-reversion==2.0.13
-      - django-contrib-comments==1.9.1
-      - sorl-thumbnail==12.5.0
-      - django-nose==1.4.6
-      - python-dateutil==2.4.2
-      - six==1.10.0
+      - django-contrib-comments==2.0.0
+      - sorl-thumbnail==12.6.3
+      - django-nose==1.4.7
+      - python-dateutil==2.8.1
+      - six==1.15.0
 
 - name: Set up virtualenv (staging)
   pip:
-    virtualenv: /home/theatricalia/.virtualenvs/theatricalia-staging-3
+    virtualenv: /home/theatricalia/.virtualenvs/theatricalia-3-staging
     virtualenv_python: python3
     name:
       - Django==1.11.29

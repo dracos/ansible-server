@@ -50,7 +50,7 @@
     db_name: theatricalia{% if domain == 'staging.theatricalia.com' %}_staging{% endif %}
 
 - name: Generate collected static {{ domain }}
-  command: /home/theatricalia/.virtualenvs/theatricalia{% if domain == 'staging.theatricalia.com' %}-staging-3{% endif %}/bin/python manage.py collectstatic --noinput
+  command: /home/theatricalia/.virtualenvs/theatricalia-3{% if domain == 'staging.theatricalia.com' %}-staging{% endif %}/bin/python manage.py collectstatic --noinput
   become_user: theatricalia
   args:
     chdir: /srv/{{ domain }}/theatricalia

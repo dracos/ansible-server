@@ -22,7 +22,7 @@
     dir: /srv/theatricalia.com/theatricalia
     user: theatricalia
     group: theatricalia
-    site: theatricalia
+    site: theatricalia-3
     wsgi: theatricalia.wsgi
   notify:
     - reload uwsgi
@@ -33,7 +33,7 @@
     dir: /srv/staging.theatricalia.com/theatricalia
     user: theatricalia
     group: theatricalia
-    site: theatricalia-staging-3
+    site: theatricalia-3-staging
     wsgi: theatricalia.wsgi
     num_procs: 2
   notify:
