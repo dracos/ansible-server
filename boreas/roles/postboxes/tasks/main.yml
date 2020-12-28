@@ -26,5 +26,6 @@
     domain: postboxes.dracos.co.uk
     php: 1
     ssl: 1
+    log_type: 'with_time_no_params'
   notify:
     - reload nginx
