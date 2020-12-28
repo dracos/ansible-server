@@ -6,4 +6,5 @@
 - include: files.yml
   vars:
     domain: staging.theatricalia.com
+    branch: python3
 - include: webserver.yml

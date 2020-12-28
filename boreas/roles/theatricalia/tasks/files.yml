@@ -42,7 +42,7 @@
 
 - name: Fetch site from github {{ domain }}
   become_user: theatricalia
-  git: repo=ssh://git@github.com/dracos/Theatricalia.git dest=/srv/{{ domain }}/theatricalia update=no
+  git: repo=ssh://git@github.com/dracos/Theatricalia.git dest=/srv/{{ domain }}/theatricalia update=no version={{ branch | default('master') }}
 
 - name: Add config file {{ domain }}
   template: dest=/srv/{{ domain }}/theatricalia/theatricalia/settings/config.py src=config.py.j2 owner=theatricalia group=theatricalia
@@ -50,7 +50,7 @@
     db_name: theatricalia{% if domain == 'staging.theatricalia.com' %}_staging{% endif %}
 
 - name: Generate collected static {{ domain }}
-  command: /home/theatricalia/.virtualenvs/theatricalia{% if domain == 'staging.theatricalia.com' %}-staging{% endif %}/bin/python manage.py collectstatic --noinput
+  command: /home/theatricalia/.virtualenvs/theatricalia{% if domain == 'staging.theatricalia.com' %}-staging-3{% endif %}/bin/python manage.py collectstatic --noinput
   become_user: theatricalia
   args:
     chdir: /srv/{{ domain }}/theatricalia

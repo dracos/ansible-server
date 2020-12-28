@@ -2,7 +2,11 @@
 uid = {{ user }}
 gid = {{ group }}
 
+{% if site == 'theatricalia-staging-3' %}
+need-plugins = python3
+{% else %}
 need-plugins = python
+{% endif %}
 
 chdir = {{ dir }}
 # home = {{ dir }}

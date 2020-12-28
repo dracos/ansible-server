@@ -33,7 +33,7 @@
     dir: /srv/staging.theatricalia.com/theatricalia
     user: theatricalia
     group: theatricalia
-    site: theatricalia-staging
+    site: theatricalia-staging-3
     wsgi: theatricalia.wsgi
     num_procs: 2
   notify:
