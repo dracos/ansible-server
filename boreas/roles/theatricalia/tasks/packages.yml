@@ -14,12 +14,12 @@
     virtualenv: /home/theatricalia/.virtualenvs/theatricalia-3
     virtualenv_python: python3
     name:
-      - Django==1.11.29
+      - Django==2.2.17
       - mysqlclient==2.0.2
-      - Pillow==8.0.1
-      - django-reversion==2.0.13
+      - Pillow==8.1.2
+      - django-reversion==3.0.7
       - django-contrib-comments==2.0.0
-      - sorl-thumbnail==12.6.3
+      - sorl-thumbnail==12.7.0
       - django-nose==1.4.7
       - python-dateutil==2.8.1
       - six==1.15.0
@@ -29,12 +29,12 @@
     virtualenv: /home/theatricalia/.virtualenvs/theatricalia-3-staging
     virtualenv_python: python3
     name:
-      - Django==1.11.29
+      - Django==2.2.17
       - mysqlclient==2.0.2
-      - Pillow==8.0.1
-      - django-reversion==2.0.13
+      - Pillow==8.1.2
+      - django-reversion==3.0.7
       - django-contrib-comments==2.0.0
-      - sorl-thumbnail==12.6.3
+      - sorl-thumbnail==12.7.0
       - django-nose==1.4.7
       - python-dateutil==2.8.1
       - six==1.15.0
