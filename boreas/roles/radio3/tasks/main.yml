@@ -1,0 +1,12 @@
+- include: files.yml
+  vars:
+    domain: radio3.theatricalia.com
+
+- name: Set up nginx
+  template: src=roles/nginx/templates/site.j2 dest=/etc/nginx/sites-enabled/radio3
+  vars:
+    domain: radio3.theatricalia.com
+    php: 1
+    ssl: 1
+  notify:
+    - reload nginx

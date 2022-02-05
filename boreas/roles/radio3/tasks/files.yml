@@ -1,0 +1,8 @@
+- name: Create site dir {{ domain }}
+  file: path=/srv/{{ domain }} state=directory owner=sympl group=sympl mode=0755
+
+- name: Create site config dir {{ domain }}
+  file: path=/srv/{{ domain }}/config state=directory owner=sympl group=sympl
+
+- name: Public files {{ domain }}
+  copy: dest=/srv/{{ domain }}/public/htdocs/robots.txt content="" owner=www-data group=www-data force=no
