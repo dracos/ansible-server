@@ -30,6 +30,9 @@ server {
     root /srv/{{ domain }}/public/htdocs;
     charset utf-8;
 
+    brotli on;
+    brotli_types text/plain text/css text/javascript application/javascript text/xml application/xml image/svg+xml application/json application/xml+rss;
+
   {% if site is defined %}
     location / {
         if (-f $document_root/maintenance.enable) {
