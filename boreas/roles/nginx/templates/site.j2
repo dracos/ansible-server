@@ -60,6 +60,15 @@ server {
 
   {% if php is defined and php %}
     index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ @php;
+    }
+
+    location @php {
+        rewrite ^(.*)$ $1.php last;
+    }
+
     location ~ \.php$ {
         try_files $uri =404;
         fastcgi_pass   php;
